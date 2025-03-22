@@ -55,7 +55,8 @@ public class AppRoot : MonoBehaviour
             Debug.Log($"UI Manager initialized");
             if (SceneManager.GetActiveScene().name == BootConstants.MAIN_MENU_SCENE_NAME)
             {
-                manager.GetOrCreate(BootConstants.MAIN_MENU_PREFAB_NAME);
+                //manager.GetOrCreate(BootConstants.MAIN_MENU_PREFAB_NAME);
+                manager.GetOrCreate<MainMenu>(true);
             }
         }
         catch (Exception e)
@@ -72,83 +73,3 @@ public class AppRoot : MonoBehaviour
         DontDestroyOnLoad(appRoot);
     }
 }
-
-public class BundleSystem
-{
-    public bool IsEmpty => _resourcesMap == null || _resourcesMap.Count == 0;
-
-    private readonly Dictionary<string, UIResource> _resourcesMap;
-    
-    
-
-    public BundleSystem(Dictionary<string, UIResource> resourcesMap)
-    {
-        _resourcesMap = resourcesMap;
-    }
-    
-    public bool IsExistBundle(string key)
-    {
-        return _resourcesMap.ContainsKey(key);
-    }
-
-    public UIResource GetResource(string bundleName)
-    {
-        return _resourcesMap[bundleName];
-    }
-}
-
-
-[Serializable]
-public class UIResource
-{
-    public string Path;
-    public string AssetName;
-    public string AssetType;
-    public List<string> ConfigsName;
-    public Dictionary<string, string> ExtraInfo;
-    
-    [JsonIgnore] 
-    public object CurrentType;
-
-    [JsonIgnore] 
-    public List<ScriptableObject> ApplyingConfigs;
-    
-    public void LoadAsset()
-    {
-        Debug.Log($"Путь {Path} Имя асета {AssetName} Тип асета по имени {AssetType} ");
-        LoadGameObject();
-        LoadConfigs();
-    }
-
-    private void LoadConfigs()
-    {
-        for (int i = 0; i < ConfigsName.Count; i++)
-        {
-            ScriptableObject config = Resources.Load<ScriptableObject>(ConfigsName[i]);
-            if(config != null)
-                ApplyingConfigs.Add(config);
-        }
-    }
-
-    private void LoadGameObject()
-    {
-        Type type = Type.GetType(AssetType);  
-        
-        if (type == null)
-        {
-            throw new Exception($"The type was not serialized correctly: {AssetType}");
-            return;
-        }
-
-        if (type == typeof(GameObject))
-        {
-            CurrentType = Resources.Load<GameObject>(Path);
-            if (CurrentType == null)
-            {
-                Debug.LogError($"Failed to load GameObject from path: {Path}");
-            }
-        }
-    }
-}
-
-

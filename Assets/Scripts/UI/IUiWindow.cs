@@ -1,4 +1,5 @@
 public interface IUiWindow
 {
-    void Show();
+    void Show(IPresenter presenter = null);
+    void Configure(UIResource resource);
 }

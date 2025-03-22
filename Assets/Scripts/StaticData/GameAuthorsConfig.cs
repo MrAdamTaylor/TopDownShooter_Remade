@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GameCreaturesConfig", menuName = "UiConfig/GameCreaturesConfig")]
-public class GameCreaturesConfig : UiConfig
+public class GameAuthorsConfig : UiConfig
 {
-    
+    public string Text;
 }
