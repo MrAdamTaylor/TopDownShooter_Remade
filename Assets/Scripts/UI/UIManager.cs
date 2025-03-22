@@ -24,50 +24,27 @@ public class UIManager : MonoBehaviour
     public void GetOrCreate(string bundleName)
     {
         Debug.Log($"Try Get or Create bundle name {bundleName}");
-        try
-        {
-            if (_bundleSystem == null)
-            {
-                throw new NullReferenceException("Bundle system is null");
-            }
 
-            if (_bundleSystem.IsEmpty)
-            {
-                throw new InvalidOperationException("Ресурсы не загружены. Словарь бандлов пуст.");
-            }
-
-            if (!_bundleSystem.IsExistBundle(bundleName))
-            {
-                throw new KeyNotFoundException($"Ресурс с ключом для '{bundleName}' не найден.");
-            }
-
-            UIResource resource = _bundleSystem.GetResource(bundleName);
+        CheckingForPossibleErrors(bundleName);
+        
+        UIResource resource = _bundleSystem.GetResource(bundleName);
+        GameObject prefab = (GameObject)resource.CurrentType;
             
-            //Это надо заранее закешировать и загрузить асинхронно!
-            GameObject prefab = Resources.Load<GameObject>(resource.Path);
+        GameObject instance = Instantiate(prefab, this.transform, false);
+        Debug.Log($"Создание бандла прошло успешно!");
             
-            GameObject instance = Instantiate(prefab, this.transform, false);
-            Debug.Log($"Создание бандла прошло успешно!");
-        }
-        catch (NullReferenceException ex)
+    }
+
+    private void CheckingForPossibleErrors(string bundleName)
+    {
+        if (_bundleSystem == null)
         {
-            Debug.LogError($"Ошибка: {ex.Message}");
-        }
-        catch (InvalidOperationException ex)
-        {
-            // Обработка ошибок, связанных с пустым словарем
-            Debug.LogError($"Ошибка: {ex.Message}");
-        }
-        catch (KeyNotFoundException ex)
-        {
-            // Обработка ошибок, связанных с отсутствием ключа
-            Debug.LogError($"Ошибка: {ex.Message}");
-        }
-        catch (Exception ex)
-        {
-            // Обработка других неожиданных ошибок
-            Debug.LogError($"Неизвестная ошибка: {ex.Message}");
+            throw new NullReferenceException("Bundle system is null");
         }
         
+        if (_bundleSystem.IsEmpty)
+        {
+            throw new InvalidOperationException("Ресурсы не загружены. Словарь бандлов пуст.");
+        }
     }
 }

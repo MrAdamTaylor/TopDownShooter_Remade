@@ -3,6 +3,7 @@
     "Path": "Prefabs/UI/MainMenu",
     "AssetName": "MainMenu",
     "AssetType": "UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-    "ExtraInfo": {}
+    "ExtraInfo": {},
+    "ConfigsName": ["Configs/UI/MainMenuConfig"]
   }
 }
