@@ -1,23 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AuthorsMenu : MonoBehaviour, IUiWindow
+public class AuthorsMenu : MonoBehaviour, IConfigurableUiWindow
 {
     [SerializeField] private Text _text;
     [SerializeField] private Button _button;
 
-    public void Show(IPresenter presenter)
+    public void Show()
     {
-        if (presenter == null)
-        {
-            Debug.Log("Call without presenter");
-        }
-        
         gameObject.SetActive(true);
     }
 
@@ -31,9 +23,10 @@ public class AuthorsMenu : MonoBehaviour, IUiWindow
         }
 
         _text.text = authorsConfig.Text;
+        _button.onClick.AddListener(Hide);
     }
 
-    public void Hide()
+    private void Hide()
     {
         gameObject.SetActive(false);
     }

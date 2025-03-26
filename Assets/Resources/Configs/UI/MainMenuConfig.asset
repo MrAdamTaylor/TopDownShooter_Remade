@@ -10,5 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12cf7d2b00684b2ba62d6ef05449cce9, type: 3}
-  m_Name: MainMenu
+  m_Name: MainMenuConfig
   m_EditorClassIdentifier: 
+  _backgroundImage: {fileID: 21300000, guid: cb8c8c54bbcaf4140ad4a56a57686fcb, type: 3}

@@ -56,7 +56,9 @@ public class AppRoot : MonoBehaviour
             if (SceneManager.GetActiveScene().name == BootConstants.MAIN_MENU_SCENE_NAME)
             {
                 //manager.GetOrCreate(BootConstants.MAIN_MENU_PREFAB_NAME);
-                manager.GetOrCreate<MainMenu>(true);
+                
+                manager.Show<MainMenu, MainMenuConfig>();
+                //manager.GetOrCreate<MainMenu>(true);
             }
         }
         catch (Exception e)

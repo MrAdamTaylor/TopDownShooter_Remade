@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public interface IPresenter
@@ -20,18 +23,37 @@ public class MainMenuPresenter : IMainMenuPresenter
 
     private UIManager _uiManager;
     
-    public MainMenuPresenter(UIManager uiManager)
+    public MainMenuPresenter(UIManager uiManager, List<UiConfig> configs)
     {
         _uiManager = uiManager;
+        MainMenuConfig menuConfig;
+        if (configs.Any(x => x is not MainMenuConfig))
+        {
+            throw new Exception($"Config does not match type {typeof(MainMenuConfig).Name}");
+        }
+        else
+        {
+            menuConfig = (MainMenuConfig)configs.First();
+        }
+
+        _backgroundImage = menuConfig._backgroundImage;
     }
 
     public void LaunchGame()
     {
-        throw new System.NotImplementedException();
+        GameApp gameApp = new GameApp();
     }
 
     public void ShowAuthors()
     {
         _uiManager.Show<AuthorsMenu, GameAuthorsConfig>();
+    }
+}
+
+public class GameApp
+{
+    public GameApp()
+    {
+        Debug.Log("Game App Created");
     }
 }

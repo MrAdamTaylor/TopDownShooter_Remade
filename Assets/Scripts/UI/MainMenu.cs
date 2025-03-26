@@ -2,16 +2,21 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour, IUiWindow
+public class MainMenu : MonoBehaviour, IPresentableUiWindow<IPresenter>
 {
-    [SerializeField] private Sprite _backgroundImage;
+    [SerializeField] private  Image _backgroundImage;
     
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _showAuthorsButton;
 
     private IMainMenuPresenter _presenter;
     
-    public void Show(IPresenter presenter)
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void SetUpPresenter(IPresenter presenter)
     {
         if (presenter is not IMainMenuPresenter mainMenuPresenter)
         {
@@ -19,15 +24,11 @@ public class MainMenu : MonoBehaviour, IUiWindow
         }
 
         _presenter = mainMenuPresenter;
-        _backgroundImage = mainMenuPresenter.BackgroundImage;
+        _backgroundImage.sprite = mainMenuPresenter.BackgroundImage;
         _startButton.onClick.AddListener(LaunchGame);
         _showAuthorsButton.onClick.AddListener(ShowAuthors);
     }
 
-    public void Configure(UIResource resource)
-    {
-        
-    }
 
     private void LaunchGame()
     {

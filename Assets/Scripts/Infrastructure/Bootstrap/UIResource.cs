@@ -16,7 +16,7 @@ public class UIResource
     public object CurrentType;
 
     [JsonIgnore] 
-    public List<ScriptableObject> ApplyingConfigs;
+    public List<UiConfig> ApplyingConfigs = new();
     
     public void LoadAsset()
     {
@@ -28,7 +28,7 @@ public class UIResource
     {
         for (int i = 0; i < ConfigsName.Count; i++)
         {
-            ScriptableObject config = Resources.Load<ScriptableObject>(ConfigsName[i]);
+            UiConfig config = Resources.Load<UiConfig>(ConfigsName[i]);
             if(config != null)
                 ApplyingConfigs.Add(config);
         }
