@@ -3,18 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public interface IPresenter
-{
-    
-}
-
-public interface IMainMenuPresenter : IPresenter
-{
-    Sprite BackgroundImage { get;}
-    void LaunchGame();
-    void ShowAuthors();
-}
-
 public class MainMenuPresenter : IMainMenuPresenter
 {
     private Sprite _backgroundImage;
@@ -47,13 +35,5 @@ public class MainMenuPresenter : IMainMenuPresenter
     public void ShowAuthors()
     {
         _uiManager.Show<AuthorsMenu, GameAuthorsConfig>();
-    }
-}
-
-public class GameApp
-{
-    public GameApp()
-    {
-        Debug.Log("Game App Created");
     }
 }

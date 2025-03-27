@@ -1,26 +1,15 @@
 using System.Collections.Generic;
 
-public class BundleSystem
+public class UIBundleSystem
 {
     public bool IsEmpty => _resourcesMap == null || _resourcesMap.Count == 0;
 
     private readonly Dictionary<string, UIResource> _resourcesMap;
     
-    
 
-    public BundleSystem(Dictionary<string, UIResource> resourcesMap)
+    public UIBundleSystem(Dictionary<string, UIResource> resourcesMap)
     {
         _resourcesMap = resourcesMap;
-    }
-    
-    public bool IsExistBundle(string key)
-    {
-        return _resourcesMap.ContainsKey(key);
-    }
-
-    public UIResource GetResource(string bundleName)
-    {
-        return _resourcesMap[bundleName];
     }
 
     public UIResource GetResourceByType<TUI>() where TUI : class, IUiWindow

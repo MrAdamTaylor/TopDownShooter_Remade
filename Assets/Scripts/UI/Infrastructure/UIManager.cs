@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-   
-    private BundleSystem _bundleSystem;
+    private UIBundleSystem _uiBundleSystem;
     private Dictionary<IUiWindow, GameObject> _uiPrefabs;
     private UIConfigurator _uiConfigurator;
 
-    public void Initialize(BundleSystem bundleSystem)
+    public void Initialize(UIBundleSystem uiBundleSystem)
     {
-        _bundleSystem = bundleSystem;
+        _uiBundleSystem = uiBundleSystem;
         _uiPrefabs = new Dictionary<IUiWindow, GameObject>();
         _uiConfigurator = new UIConfigurator(this);
     }
@@ -42,7 +41,7 @@ public class UIManager : MonoBehaviour
 
     private UIResource GetUIResource<TUI>() where TUI : class, IUiWindow
     {
-        UIResource resource = _bundleSystem.GetResourceByType<TUI>();
+        UIResource resource = _uiBundleSystem.GetResourceByType<TUI>();
         return resource;
     }
 
@@ -58,71 +57,16 @@ public class UIManager : MonoBehaviour
         uiWindow.Show();
     }
 
-    public void GetOrCreate(string bundleName)
-    {
-        Debug.Log($"Try Get or Create bundle name {bundleName}");
-
-        CheckingForPossibleErrors(bundleName);
-        
-        UIResource resource = _bundleSystem.GetResource(bundleName);
-        GameObject prefab = (GameObject)resource.CurrentType;
-            
-        GameObject instance = Instantiate(prefab, this.transform, false);
-        Debug.Log($"Создание бандла прошло успешно!");
-            
-    }
-
-    private void CheckingForPossibleErrors(string bundleName)
-    {
-        if (_bundleSystem == null)
-        {
-            throw new NullReferenceException("Bundle system is null");
-        }
-        
-        if (_bundleSystem.IsEmpty)
-        {
-            throw new InvalidOperationException("Ресурсы не загружены. Словарь бандлов пуст.");
-        }
-    }
-
     private void CheckingForPossibleErrors()
     {
-        if (_bundleSystem == null)
+        if (_uiBundleSystem == null)
         {
             throw new NullReferenceException("Bundle system is null");
         }
         
-        if (_bundleSystem.IsEmpty)
+        if (_uiBundleSystem.IsEmpty)
         {
             throw new InvalidOperationException("Ресурсы не загружены. Словарь бандлов пуст.");
         }
     }
 }
-
-public class UIConfigurator
-{
-    UIManager _uiManager;
-    
-    public UIConfigurator(UIManager uiManager)
-    {
-        _uiManager = uiManager;
-    }
-
-    public void Configure<TUIWindow>(TUIWindow uiWindow, UIResource resource) where TUIWindow : class, IUiWindow
-    {
-        switch (uiWindow)
-        {
-            case IPresentableUiWindow<IPresenter> presentableUiWindow:
-                MainMenuPresenter menuPresenter = new MainMenuPresenter(_uiManager, resource.ApplyingConfigs);
-                presentableUiWindow.SetUpPresenter(menuPresenter);
-                break;
-            case IConfigurableUiWindow configurableUiWindow:
-                configurableUiWindow.Configure(resource);
-                break;
-        }
-    }
-}
-
-
-
-
