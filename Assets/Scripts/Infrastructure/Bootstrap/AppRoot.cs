@@ -16,7 +16,7 @@ public class AppRoot : MonoBehaviour
         public const string MAIN_MENU_SCENE_NAME = "MainMenu";
         public const string MAIN_MENU_PREFAB_NAME = "MainMenu";
     }
-
+ 
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Init()

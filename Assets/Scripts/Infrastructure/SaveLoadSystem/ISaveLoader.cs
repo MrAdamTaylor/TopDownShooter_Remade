@@ -1,5 +1,5 @@
 public interface ISaveLoader
 {
-    void SaveGame(GameContext gameContext);
-    void LoadGame(GameContext gameContext);
+    void SaveGame(IGameRepository gameRepository, GameContext gameContext);
+    void LoadGame(IGameRepository gameRepository, GameContext gameContext);
 }
