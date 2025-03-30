@@ -12,7 +12,6 @@ public class ScoresSaveLoader : ISaveLoader
     {
         _scoreStorage = gameContext.GetScoreSotrage();
         gameRepository.SetData(_scoreStorage.Score);
-        //PlayerPrefs.SetInt(PLAYER_SCORES_KEY,_scoreStorage.Score);
         Debug.Log($"Saved Score: {_scoreStorage.Score}");
     }
 
@@ -22,7 +21,6 @@ public class ScoresSaveLoader : ISaveLoader
         if (gameRepository.TryGetData(out int playerScore))
         {
             gameRepository.SetData(playerScore);
-            //var value = PlayerPrefs.GetInt(PLAYER_SCORES_KEY);
             _scoreStorage.SetupScore(playerScore);
             Debug.Log($"Load Score: {_scoreStorage.Score}");
         }

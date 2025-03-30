@@ -19,6 +19,8 @@ public class SaveLoadManager : MonoBehaviour
 
     public void LoadGame()
     {
+        _gameRepository.LoadState();
+        
         if (_saveLoader != null && _gameRepository != null && _gameContext != null)
         {
             _saveLoader.LoadGame(_gameRepository, _gameContext);
@@ -31,6 +33,8 @@ public class SaveLoadManager : MonoBehaviour
         {
             _saveLoader.SaveGame(_gameRepository, _gameContext);
         }
+        
+        _gameRepository.SaveState();
     }
 
 }

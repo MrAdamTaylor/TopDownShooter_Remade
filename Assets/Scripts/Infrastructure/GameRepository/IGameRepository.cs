@@ -1,5 +1,3 @@
-
-
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -13,7 +11,7 @@ public interface IGameRepository
 
 public class GameRepository : IGameRepository
 {
-    public const string KEY_SAVE = "MainMenu";
+    public const string KEY_SAVE = "GameState";
     private Dictionary<string, string> _gameState = new(); 
     
     public T GetData<T>()
