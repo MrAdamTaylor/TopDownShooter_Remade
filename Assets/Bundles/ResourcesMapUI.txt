@@ -1,0 +1,16 @@
+{
+  "MainMenu": {
+    "Path": "Prefabs/UI/MainMenu",
+    "AssetName": "MainMenu",
+    "AssetType": "UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "ExtraInfo": {},
+    "ConfigsName": ["Configs/UI/MainMenuConfig"]
+  },
+  "AuthorsMenu": {
+    "Path": "Prefabs/UI/AuthorsMenu",
+    "AssetName": "MainMenu",
+    "AssetType": "UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "ExtraInfo": {},
+    "ConfigsName": ["Configs/UI/AuthorsMenuConfig"]
+  }
+}

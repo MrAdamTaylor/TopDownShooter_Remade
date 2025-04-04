@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,13 +9,11 @@ public class AppRoot : MonoBehaviour
     {
         public const string PATH_TO_BOOT = "Prefabs/Bootstrap/AppController";
         public const string PATH_TO_UI_MANAGER = "Prefabs/UI/UiWindowManager";
-        public const string RESOURCE_MAP_PATH = "ResourcesMapUI";
         public const string CLONE_LITERAL = "(Clone)";
-        public const string CANVAS_NAME = "Canvas";
         public const string MAIN_MENU_SCENE_NAME = "MainMenu";
-        public const string MAIN_MENU_PREFAB_NAME = "MainMenu";
     }
- 
+
+    private static UIBundleSystem _uiBundleSystem;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Init()
@@ -25,20 +22,12 @@ public class AppRoot : MonoBehaviour
         CreateUIManager();
     }
 
-    private static void CreateUIManager()
+    private static async void CreateUIManager()
     {
         GameObject canvas = Instantiate(Resources.Load(BootConstants.PATH_TO_UI_MANAGER)) as GameObject;
         canvas.name = canvas.name.Replace(BootConstants.CLONE_LITERAL, string.Empty);
-        TextAsset jsonFile = Resources.Load<TextAsset>(BootConstants.RESOURCE_MAP_PATH);
-        if (jsonFile == null)
-        {
-            throw new Exception("UI Resource Map not found in Resources!");
-            return;
-        }
-        
-        var resourceMap = LoadUiResources(jsonFile);
-        UIBundleSystem uiBundleSystem = new UIBundleSystem(resourceMap);
-        var manager = CreateUIManager(canvas, uiBundleSystem);
+        await LoadUiResources();
+        var manager = CreateUIManager(canvas, _uiBundleSystem);
             
         if (SceneManager.GetActiveScene().name == BootConstants.MAIN_MENU_SCENE_NAME)
         {
@@ -46,15 +35,14 @@ public class AppRoot : MonoBehaviour
         }
     }
 
-    private static Dictionary<string, UIResource> LoadUiResources(TextAsset jsonFile)
+    private  static async UniTask  LoadUiResources()
     {
-        Dictionary<string, UIResource> resourceMap = JsonConvert.DeserializeObject<Dictionary<string, UIResource>>(jsonFile.text);
+        Dictionary<string, UIResource> resourceMap = await Loader.LoadUI<Dictionary<string, UIResource>>();
+        _uiBundleSystem = new UIBundleSystem(resourceMap);
         foreach (UIResource resource in resourceMap.Values)
         {
             resource.LoadAsset();
         }
-
-        return resourceMap;
     }
 
     private static UIManager CreateUIManager(GameObject canvas, UIBundleSystem uiBundleSystem)
