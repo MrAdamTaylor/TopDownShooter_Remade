@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using System.IO;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.Device;
 using Application = UnityEngine.Device.Application;
 
 public static class Loader
@@ -17,11 +15,11 @@ public static class Loader
     {
         string path = GetUIBundlePath();
         CheckFilePath(path);
-        var result = await LoadFileByPath<T>(path);
+        var result = await ReadFileByPath<T>(path);
         return result;
     }
 
-    private static async UniTask<T> LoadFileByPath<T>(string path)
+    private static async UniTask<T> ReadFileByPath<T>(string path)
     {
         await UniTask.SwitchToThreadPool();
         using var reader = new StreamReader(path);

@@ -12,5 +12,12 @@
     "AssetType": "UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
     "ExtraInfo": {},
     "ConfigsName": ["Configs/UI/AuthorsMenuConfig"]
+  },
+  "TestMenu": {
+    "Path": "Prefabs/UI/TestMenu",
+    "AssetName": "MainMenu",
+    "AssetType": "UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "ExtraInfo": {},
+    "ConfigsName": ["Configs/UI/TestMenuConfig"]
   }
 }

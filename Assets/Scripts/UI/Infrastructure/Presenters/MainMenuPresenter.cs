@@ -29,11 +29,18 @@ public class MainMenuPresenter : IMainMenuPresenter
 
     public void LaunchGame()
     {
-        GameApp gameApp = new GameApp();
+        _uiManager.Show<TestMenu, TestMenuConfig>();
+        //GameApp gameApp = new GameApp();
     }
 
     public void ShowAuthors()
     {
         _uiManager.Show<AuthorsMenu, GameAuthorsConfig>();
     }
+}
+
+[CreateAssetMenu(fileName = "TestMenuConfig", menuName = "UiConfig/TestMenu")]
+public class TestMenuConfig : UiConfig
+{
+    
 }
