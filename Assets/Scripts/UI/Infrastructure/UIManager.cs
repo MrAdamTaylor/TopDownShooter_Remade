@@ -14,9 +14,17 @@ public class UIManager : MonoBehaviour
         _uiBundleSystem = uiBundleSystem;
         _uiPrefabs = new Dictionary<IUiWindow, GameObject>();
         _uiConfigurator = new UIConfigurator(this);
+        DontDestroyOnLoad(this);
     }
-    
-    
+
+    public void ClearAllUI()
+    {
+        this.transform.DestroyAllChildren();
+        
+        //TODO - работает, но это скорее всего нарушает мою оптимизацию с загрузкой, надо будет проверить
+        _uiPrefabs.Clear();
+    }
+
     private TUI GetOrCreate<TUI>(bool isShowed = false) where TUI: class, IUiWindow 
     {
         CheckingForPossibleErrors();
@@ -69,4 +77,6 @@ public class UIManager : MonoBehaviour
             throw new InvalidOperationException("Ресурсы не загружены. Словарь бандлов пуст.");
         }
     }
+    
+    
 }

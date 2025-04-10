@@ -5,9 +5,9 @@ public interface IState: IExitableState
     void Enter();
 }
 
-public interface IPayloadedState<TPayload> : IExitableState
+public interface IPayloadedState : IExitableState
 {
-    void Enter(TPayload payload);
+    void Enter(object payload);
 }
   
 public interface IExitableState

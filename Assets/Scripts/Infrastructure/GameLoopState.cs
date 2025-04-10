@@ -13,7 +13,7 @@ public class GameLoopState : IState
 
     public void Exit()
     {
-        throw new NotImplementedException();
+        
     }
 
     public void Enter()

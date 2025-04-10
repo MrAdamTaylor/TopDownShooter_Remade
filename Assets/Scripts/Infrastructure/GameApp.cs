@@ -2,38 +2,27 @@ using UnityEngine;
 
 public class GameApp
 {
-    private GameStateMachine _gameStateMachine;
+    public GameStateMachine GameStateMachine;
     private bool _isBootstraped;
-    public GameApp()
+    private LevelPackConfig _levelPackConfig;
+    
+    public GameApp(LevelPackConfig levelPackConfig)
     {
         Debug.Log("Game App Created");
-        if (_gameStateMachine == null)
-        {
-            _gameStateMachine = new GameStateMachine(new SceneLoader());
-        }
+        _levelPackConfig = levelPackConfig;
+        GameStateMachine ??= new GameStateMachine(AppRoot.SceneLoader, levelPackConfig);
     }
 
     public void StartGame()
     {
         if (_isBootstraped)
         {
-            _gameStateMachine.Enter<LoadLevelState>();
+            GameStateMachine.Enter<LoadLevelState, string>(_levelPackConfig.DefaultFirstLevelConfig.SceneName);
         }
         else
         {
-            _gameStateMachine.Enter<BootstrapState>();
+            GameStateMachine.Enter<BootstrapState>();
             _isBootstraped = true;
         }
     }
 }
-
-public class SceneLoader
-{
-    
-    
-    
-}
-
-
-
-

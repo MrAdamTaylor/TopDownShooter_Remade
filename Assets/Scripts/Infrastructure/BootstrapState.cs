@@ -5,7 +5,7 @@ public class BootstrapState : IState
 {
     private readonly GameStateMachine _stateMachine;
 
-    public BootstrapState(GameStateMachine stateMachine)
+    public BootstrapState(GameStateMachine stateMachine, LevelPackConfig levelPackConfig)
     {
         Debug.Log($"<color=green> BootstrapState Instantiate </color>");
         _stateMachine = stateMachine;

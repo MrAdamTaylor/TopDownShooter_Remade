@@ -30,10 +30,12 @@ public class MainMenuPresenter : IMainMenuPresenter
 
     public void LaunchGame()
     {
-        _uiManager.Show<TestMenu, TestMenuConfig>();
+        LevelPackConfig packageConfig = Resources.Load<LevelPackConfig>("Configs/Levels/DefaultLevelPack");
+        
         if (_gameApp == null)
         {
-            _gameApp = new GameApp();
+            _gameApp = new GameApp(packageConfig);
+            AppRoot.AddGameApp(_gameApp.GameStateMachine);
         }
 
         _gameApp.StartGame();
