@@ -10,6 +10,7 @@ public class MainMenuPresenter : IMainMenuPresenter
 
 
     private UIManager _uiManager;
+    private GameApp _gameApp;
     
     public MainMenuPresenter(UIManager uiManager, List<UiConfig> configs)
     {
@@ -30,7 +31,12 @@ public class MainMenuPresenter : IMainMenuPresenter
     public void LaunchGame()
     {
         _uiManager.Show<TestMenu, TestMenuConfig>();
-        //GameApp gameApp = new GameApp();
+        if (_gameApp == null)
+        {
+            _gameApp = new GameApp();
+        }
+
+        _gameApp.StartGame();
     }
 
     public void ShowAuthors()
