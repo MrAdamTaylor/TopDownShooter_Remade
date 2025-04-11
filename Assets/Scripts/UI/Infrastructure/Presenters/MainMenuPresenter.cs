@@ -46,9 +46,3 @@ public class MainMenuPresenter : IMainMenuPresenter
         _uiManager.Show<AuthorsMenu, GameAuthorsConfig>();
     }
 }
-
-[CreateAssetMenu(fileName = "TestMenuConfig", menuName = "UiConfig/TestMenu")]
-public class TestMenuConfig : UiConfig
-{
-    
-}

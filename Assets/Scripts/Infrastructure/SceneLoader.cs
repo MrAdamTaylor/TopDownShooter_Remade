@@ -8,6 +8,9 @@ using UnityEngine.SceneManagement;
 public class SceneLoader
 {
     private const string STANDART_SCENES_PATH = "Scenes/";
+    private const string INTERMEDIATE_SCENE_NAME = "LoadScene";
+
+    public string SceneName => _nextSceneName;
     
     private string _nextSceneName;
     private List<Action> _preloadActions;
@@ -16,14 +19,15 @@ public class SceneLoader
     {
         _preloadActions = actions;
     }
-
+    
     public async UniTaskVoid LoadByConfig(LevelConfig levelConfig)
     {
         _nextSceneName = levelConfig.SceneName;
-        await LoadOpeariont();
+        SceneManager.LoadScene(INTERMEDIATE_SCENE_NAME);
+        //await LoadOpeariont();
     }
 
-    private async Task LoadOpeariont()
+    public async Task LoadOpeariont()
     {
         ExecutePreloadActions();
         await Resources.UnloadUnusedAssets();

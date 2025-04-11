@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4e223887f53fb449b48ee093ec7ee7, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  LevelName: 
+  SceneName: Level1
   SpawnerConfigsList: []
